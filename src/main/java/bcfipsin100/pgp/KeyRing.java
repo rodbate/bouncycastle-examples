@@ -4,16 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.util.Date;
 
 import bcfipsin100.base.Dsa;
 import bcfipsin100.base.Rsa;
 import bcfipsin100.base.Setup;
-import bcfipsin100.util.ExValues;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.bouncycastle.bcpg.HashAlgorithmTags;
-import org.bouncycastle.crypto.general.RSA;
 import org.bouncycastle.openpgp.PGPEncryptedData;
 import org.bouncycastle.openpgp.PGPException;
 import org.bouncycastle.openpgp.PGPKeyPair;

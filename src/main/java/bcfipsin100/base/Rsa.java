@@ -23,10 +23,6 @@ import javax.crypto.spec.PSource;
 import bcfipsin100.util.ExValues;
 import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.crypto.util.DERMacData;
-import org.bouncycastle.jcajce.KTSKeyWithEncapsulation;
-import org.bouncycastle.jcajce.ZeroizableSecretKey;
-import org.bouncycastle.jcajce.spec.KTSExtractKeySpec;
-import org.bouncycastle.jcajce.spec.KTSGenerateKeySpec;
 import org.bouncycastle.jcajce.spec.KTSParameterSpec;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Hex;
@@ -219,7 +215,7 @@ public class Rsa
     {
         SecretKeyFactory kemFact = SecretKeyFactory.getInstance("RSA-KTS-OAEP", "BCFIPS");
 
-        KTSGenerateKeySpec kemParams = new KTSGenerateKeySpec.Builder(rsaPublic, "AES", 256).withMac("HmacSHA384", 384).build();
+        /*KTSGenerateKeySpec kemParams = new KTSGenerateKeySpec.Builder(rsaPublic, "AES", 256).withMac("HmacSHA384", 384).build();
 
         KTSKeyWithEncapsulation encapsKey = (KTSKeyWithEncapsulation)kemFact.generateSecret(kemParams);
 
@@ -236,7 +232,8 @@ public class Rsa
 
         macKey.zeroize();
 
-        return new byte[][] { encapsKey.getEncoded(), encapsKey.getEncapsulation(), encMac };
+        return new byte[][] { encapsKey.getEncoded(), encapsKey.getEncapsulation(), encMac };*/
+        return null;
     }
 
     public static byte[][] recipientOaepKeyEstablishWithKeyConfirmation(PrivateKey rsaPrivate, byte[] encapsulation)
@@ -244,7 +241,7 @@ public class Rsa
     {
         SecretKeyFactory kemFact = SecretKeyFactory.getInstance("RSA-KTS-OAEP", "BCFIPS");
 
-        KTSExtractKeySpec kemParams = new KTSExtractKeySpec.Builder(rsaPrivate, encapsulation, "AES", 256).withMac("HmacSHA384", 384).build();
+        /*KTSExtractKeySpec kemParams = new KTSExtractKeySpec.Builder(rsaPrivate, encapsulation, "AES", 256).withMac("HmacSHA384", 384).build();
 
         KTSKeyWithEncapsulation encapsKey = (KTSKeyWithEncapsulation)kemFact.generateSecret(kemParams);
 
@@ -261,7 +258,8 @@ public class Rsa
 
         macKey.zeroize();
 
-        return new byte[][] { encapsKey.getEncoded(), encapsKey.getEncapsulation(), encMac };
+        return new byte[][] { encapsKey.getEncoded(), encapsKey.getEncapsulation(), encMac };*/
+        return null;
     }
 
     public static void main(String[] args)

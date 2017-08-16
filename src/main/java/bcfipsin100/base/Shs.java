@@ -10,9 +10,6 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 
 import bcfipsin100.util.ExValues;
-import org.bouncycastle.crypto.OutputXOFCalculator;
-import org.bouncycastle.crypto.fips.FipsSHS;
-import org.bouncycastle.crypto.fips.FipsXOFOperatorFactory;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Hex;
 
@@ -57,7 +54,7 @@ public class Shs
     public static byte[] calculateShakeOutput(byte[] data)
         throws IOException
     {
-        FipsXOFOperatorFactory<FipsSHS.Parameters> factory = new FipsSHS.XOFOperatorFactory<FipsSHS.Parameters>();
+        /*FipsXOFOperatorFactory<FipsSHS.Parameters> factory = new FipsSHS.XOFOperatorFactory<FipsSHS.Parameters>();
 
         OutputXOFCalculator<FipsSHS.Parameters> calculator = factory.createOutputXOFCalculator(FipsSHS.SHAKE256);
 
@@ -67,13 +64,14 @@ public class Shs
 
         digestStream.close();
 
-        return calculator.getFunctionOutput(32);
+        return calculator.getFunctionOutput(32);*/
+        return null;
     }
 
     public static byte[] calculateShakeOutputContinuous(byte[] data)
         throws IOException
     {
-        FipsXOFOperatorFactory<FipsSHS.Parameters> factory = new FipsSHS.XOFOperatorFactory<FipsSHS.Parameters>();
+        /*FipsXOFOperatorFactory<FipsSHS.Parameters> factory = new FipsSHS.XOFOperatorFactory<FipsSHS.Parameters>();
 
         OutputXOFCalculator<FipsSHS.Parameters> calculator = factory.createOutputXOFCalculator(FipsSHS.SHAKE256);
 
@@ -83,7 +81,8 @@ public class Shs
 
         digestStream.close();
 
-        return Arrays.concatenate(calculator.getFunctionOutput(16), calculator.getFunctionOutput(16));
+        return Arrays.concatenate(calculator.getFunctionOutput(16), calculator.getFunctionOutput(16));*/
+        return null;
     }
 
     public static void main(String[] args)
