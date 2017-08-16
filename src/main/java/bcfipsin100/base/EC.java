@@ -15,6 +15,7 @@ import javax.crypto.SecretKey;
 
 import bcfipsin100.util.ExValues;
 import org.bouncycastle.crypto.util.DERMacData;
+import org.bouncycastle.jcajce.AgreedKeyWithMacKey;
 import org.bouncycastle.jcajce.spec.UserKeyingMaterialSpec;
 import org.bouncycastle.util.Arrays;
 import org.bouncycastle.util.encoders.Hex;
@@ -131,7 +132,7 @@ public class EC
 
         agreement.doPhase(recipientPublic, true);
 
-        /*AgreedKeyWithMacKey agreedKey = (AgreedKeyWithMacKey)agreement.generateSecret("CMAC[128]" + "/" + "AES[256]");
+        AgreedKeyWithMacKey agreedKey = (AgreedKeyWithMacKey)agreement.generateSecret("CMAC[128]" + "/" + "AES[256]");
 
         Mac mac = Mac.getInstance("CMAC", "BCFIPS");
 
@@ -144,8 +145,7 @@ public class EC
 
         agreedKey.getMacKey().zeroize();
 
-        return new byte[][] { agreedKey.getEncoded(), encMac };*/
-        return null;
+        return new byte[][] { agreedKey.getEncoded(), encMac };
     }
 
     public static byte[][] recipientAgreeKeyEstablishWithKeyConfirmation(PrivateKey recipientPrivate, PublicKey initiatorPublic, byte[] userKeyingMaterial)
@@ -157,7 +157,7 @@ public class EC
 
         agreement.doPhase(initiatorPublic, true);
 
-        /*AgreedKeyWithMacKey agreedKey = (AgreedKeyWithMacKey)agreement.generateSecret("CMAC[128]" + "/" + "AES[256]");
+        AgreedKeyWithMacKey agreedKey = (AgreedKeyWithMacKey)agreement.generateSecret("CMAC[128]" + "/" + "AES[256]");
 
         Mac mac = Mac.getInstance("CMAC", "BCFIPS");
 
@@ -170,8 +170,7 @@ public class EC
 
         agreedKey.getMacKey().zeroize();
 
-        return new byte[][] { agreedKey.getEncoded(), encMac };*/
-        return null;
+        return new byte[][] { agreedKey.getEncoded(), encMac };
     }
 
     public static void main(String[] args)

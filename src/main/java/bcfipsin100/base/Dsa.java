@@ -12,6 +12,7 @@ import java.security.Signature;
 import java.security.spec.DSAParameterSpec;
 
 import bcfipsin100.util.ExValues;
+import org.bouncycastle.jcajce.spec.DSADomainParametersGenerationParameterSpec;
 
 
 public class Dsa
@@ -55,7 +56,7 @@ public class Dsa
     {
         AlgorithmParameterGenerator algGen = AlgorithmParameterGenerator.getInstance("DSA", "BCFIPS");
 
-        //algGen.init(new DSADomainParametersGenerationParameterSpec(3072, 256, 112));
+        algGen.init(new DSADomainParametersGenerationParameterSpec(3072, 256, 112));
 
         AlgorithmParameters dsaParams = algGen.generateParameters();
 

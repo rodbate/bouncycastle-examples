@@ -81,7 +81,7 @@ public class Util
         OutputStream out = sock.getOutputStream();
         InputStream in = sock.getInputStream();
 
-        int ch = 0;
+        int ch;
         while ((ch = in.read()) != '!')
         {
             System.out.print((char)ch);
