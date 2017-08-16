@@ -26,9 +26,9 @@ public class EC
     public static KeyPair generateKeyPair()
         throws GeneralSecurityException
     {
-        KeyPairGenerator keyPair = KeyPairGenerator.getInstance("EC", "BCFIPS");
+        KeyPairGenerator keyPair = KeyPairGenerator.getInstance("RSA");
 
-        keyPair.initialize(384);
+        keyPair.initialize(1024);
 
         return keyPair.generateKeyPair();
     }
@@ -36,7 +36,7 @@ public class EC
     public static byte[] generateSignature(PrivateKey ecPrivate, byte[] input)
         throws GeneralSecurityException
     {
-        Signature signature = Signature.getInstance("SHA384withECDSA", "BCFIPS");
+        Signature signature = Signature.getInstance("SHA256withRSA");
 
         signature.initSign(ecPrivate);
 

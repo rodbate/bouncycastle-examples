@@ -11,4 +11,8 @@ public class Setup
     {
         Security.addProvider(new BouncyCastleFipsProvider());
     }
+
+    public static void main(String[] args) {
+        installProvider();
+    }
 }

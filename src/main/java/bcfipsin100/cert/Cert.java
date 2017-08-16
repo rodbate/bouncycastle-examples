@@ -79,9 +79,9 @@ public class Cert
             new X500Name("CN=Issuer CA"),
             caPublicKey);
 
-        JcaContentSignerBuilder signerBuilder = new JcaContentSignerBuilder("SHA384withECDSA").setProvider("BCFIPS");
+        JcaContentSignerBuilder signerBuilder = new JcaContentSignerBuilder("SHA256withRSA").setProvider("SunRsaSign");
 
-        return new JcaX509CertificateConverter().setProvider("BCFIPS").getCertificate(v1CertBldr.build(signerBuilder.build(caSignerKey)));
+        return new JcaX509CertificateConverter().getCertificate(v1CertBldr.build(signerBuilder.build(caSignerKey)));
     }
 
     public static X509Certificate makeV1RsaCertificate(PrivateKey caSignerKey, PublicKey caPublicKey)

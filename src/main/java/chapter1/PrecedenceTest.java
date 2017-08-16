@@ -15,7 +15,7 @@ public class PrecedenceTest
         
         System.out.println(cipher.getProvider());
         
-        cipher = Cipher.getInstance("Blowfish/ECB/NoPadding", "BC");
+        cipher = Cipher.getInstance("Blowfish/ECB/NoPadding", "RSA");
         
         System.out.println(cipher.getProvider());
     }

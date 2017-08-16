@@ -65,7 +65,7 @@ public class HttpsWithClientAuth
 
             SSLContext clientContext = SSLContext.getInstance("TLS");
 
-            clientContext.init(keyMgrFact.getKeyManagers(), trustMgrFact.getTrustManagers(), SecureRandom.getInstance("DEFAULT", "BCFIPS"));
+            clientContext.init(keyMgrFact.getKeyManagers(), trustMgrFact.getTrustManagers(), null);
 
             SSLSocketFactory fact = clientContext.getSocketFactory();
 
@@ -143,7 +143,7 @@ public class HttpsWithClientAuth
 
             SSLContext serverContext = SSLContext.getInstance("TLS");
 
-            serverContext.init(keyMgrFact.getKeyManagers(), trustMgrFact.getTrustManagers(), SecureRandom.getInstance("DEFAULT", "BCFIPS"));
+            serverContext.init(keyMgrFact.getKeyManagers(), trustMgrFact.getTrustManagers(), null);
 
             SSLServerSocketFactory fact = serverContext.getServerSocketFactory();
             SSLServerSocket sSock = (SSLServerSocket)fact.createServerSocket(PORT_NO);
@@ -210,7 +210,7 @@ public class HttpsWithClientAuth
     private static KeyStore rebuildStore(String storeType, char[] storePassword, byte[] encoding)
         throws GeneralSecurityException, IOException
     {
-        KeyStore keyStore = KeyStore.getInstance(storeType, "BCFIPS");
+        KeyStore keyStore = KeyStore.getInstance(storeType);
 
         keyStore.load(new ByteArrayInputStream(encoding), storePassword);
 
@@ -223,13 +223,13 @@ public class HttpsWithClientAuth
         char[] storePass = "storePassword".toCharArray();
         char[] keyPass = "keyPassword".toCharArray();
 
-        Setup.installProvider();
+        //Setup.installProvider();
 
         KeyPair caKeyPair = EC.generateKeyPair();
 
         X509Certificate caCert = Cert.makeV1Certificate(caKeyPair.getPrivate(), caKeyPair.getPublic());
 
-        KeyStore keyStore = rebuildStore("BCFKS", storePass, KeyStr.storePrivateKey(storePass, keyPass, caKeyPair.getPrivate(), new X509Certificate[]{caCert}));
+        KeyStore keyStore = rebuildStore("jks", storePass, KeyStr.storePrivateKey(storePass, keyPass, caKeyPair.getPrivate(), new X509Certificate[]{caCert}));
 
         Util.runClientAndServer(new HttpsAuthServer(keyStore, keyPass, keyStore), new HttpsAuthClient(keyStore, keyStore, keyPass));
     }

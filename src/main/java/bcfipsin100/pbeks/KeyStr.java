@@ -50,7 +50,7 @@ public class KeyStr
     public static byte[] storePrivateKey(char[] storePassword, char[] keyPass, PrivateKey eeKey, X509Certificate[] eeCertChain)
         throws GeneralSecurityException, IOException
     {
-        KeyStore keyStore = KeyStore.getInstance("BCFKS", "BCFIPS");
+        KeyStore keyStore = KeyStore.getInstance("jks");
 
         keyStore.load(null, null);
 

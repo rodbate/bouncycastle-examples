@@ -14,7 +14,10 @@ public class ListBCCapabilities
         String[]    args)
     {
         Provider	provider = Security.getProvider("BC");
-        
+        if (provider == null) {
+            System.out.println("provider BC does not exist");
+            System.exit(-1);
+        }
         Iterator  it = provider.keySet().iterator();
         
         while (it.hasNext())
