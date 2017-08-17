@@ -1,7 +1,10 @@
 package chapter2;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.Security;
 
 
 /**
@@ -13,6 +16,7 @@ public class SimpleSymmetricExample
         String[]    args)
         throws Exception
     {
+        Security.addProvider(new BouncyCastleProvider());
         byte[]        input = new byte[] { 
                 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 
                 (byte)0x88, (byte)0x99, (byte)0xaa, (byte)0xbb,

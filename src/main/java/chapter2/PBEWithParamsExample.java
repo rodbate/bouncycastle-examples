@@ -1,6 +1,9 @@
 package chapter2;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import java.security.Key;
+import java.security.Security;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
@@ -18,6 +21,8 @@ public class PBEWithParamsExample
         String[]    args)
         throws Exception
     {
+        Security.addProvider(new BouncyCastleProvider());
+
         byte[]          input = new byte[] { 
                             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
                             0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
@@ -53,7 +58,8 @@ public class PBEWithParamsExample
         Key    sKey = keyFact.generateSecret(pbeSpec);
 
         cDec.init(Cipher.DECRYPT_MODE, sKey, new PBEParameterSpec(salt, iterationCount));
-        
+
+        System.out.println("input : " + Utils.toHex(input));
         System.out.println("cipher : " + Utils.toHex(out));
         System.out.println("gen key: " + Utils.toHex(sKey.getEncoded()));
         System.out.println("gen iv : " + Utils.toHex(cDec.getIV()));

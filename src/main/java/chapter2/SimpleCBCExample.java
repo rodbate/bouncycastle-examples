@@ -1,8 +1,11 @@
 package chapter2;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.Security;
 
 /**
  * Basic symmetric encryption example with padding and CBC using DES
@@ -13,6 +16,8 @@ public class SimpleCBCExample
         String[]    args)
         throws Exception
     {
+        Security.addProvider(new BouncyCastleProvider());
+
         byte[]          input = new byte[] { 
                 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 
                 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
@@ -47,9 +52,10 @@ public class SimpleCBCExample
         
         byte[] plainText = new byte[cipher.getOutputSize(ctLength)];
 
-        int ptLength = cipher.update(cipherText, 0, ctLength, plainText, 0);
+        //int ptLength = cipher.update(cipherText, 0, ctLength, plainText, 0);
         
-        ptLength += cipher.doFinal(plainText, ptLength);
+        //ptLength += cipher.doFinal(plainText, ptLength);
+        int ptLength = cipher.doFinal(cipherText, 0, ctLength, plainText, 0);
         
         System.out.println("plain : " + Utils.toHex(plainText, ptLength) + " bytes: " + ptLength);
     }

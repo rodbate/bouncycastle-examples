@@ -1,7 +1,13 @@
 package chapter8;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.PEMWriter;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+
+import java.io.PrintWriter;
 import java.security.KeyPair;
 import java.security.PrivateKey;
+import java.security.Security;
 import java.security.cert.X509Certificate;
 
 import javax.security.auth.x500.X500PrivateCredential;
@@ -22,9 +28,19 @@ public class Utils extends chapter7.Utils
         throws Exception
     {
         KeyPair         rootPair = generateRSAKeyPair();
-        X509Certificate rootCert = /*generateRootCert(rootPair)*/null;
+        X509Certificate rootCert = generateRootCert(rootPair);
         
         return new X500PrivateCredential(rootCert, rootPair.getPrivate(), ROOT_ALIAS);
+    }
+
+    public static void main(String[] args) throws Exception {
+        Security.addProvider(new BouncyCastleProvider());
+        KeyPair         rootPair = generateRSAKeyPair();
+        X509Certificate cert = generateRootCert(rootPair);
+
+        JcaPEMWriter writer = new JcaPEMWriter(new PrintWriter(System.out));
+        writer.writeObject(cert);
+        writer.close();
     }
     
     /**
@@ -36,7 +52,7 @@ public class Utils extends chapter7.Utils
         throws Exception
     {
         KeyPair         interPair = generateRSAKeyPair();
-        X509Certificate interCert = /*generateIntermediateCert(interPair.getPublic(), caKey, caCert)*/null;
+        X509Certificate interCert = generateIntermediateCert(interPair.getPublic(), caKey, caCert);
         
         return new X500PrivateCredential(interCert, interPair.getPrivate(), INTERMEDIATE_ALIAS);
     }
@@ -50,7 +66,7 @@ public class Utils extends chapter7.Utils
         throws Exception
     {
         KeyPair         endPair = generateRSAKeyPair();
-        X509Certificate endCert = /*generateEndEntityCert(endPair.getPublic(), caKey, caCert)*/null;
+        X509Certificate endCert = generateEndEntityCert(endPair.getPublic(), caKey, caCert);
         
         return new X500PrivateCredential(endCert, endPair.getPrivate(), END_ENTITY_ALIAS);
     }

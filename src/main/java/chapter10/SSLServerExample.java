@@ -1,5 +1,7 @@
 package chapter10;
 
+import rb.BaseClass;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,7 +14,7 @@ import javax.net.ssl.SSLSocket;
 /**
  * Basic SSL Server - using the '!' protocol.
  */
-public class SSLServerExample 
+public class SSLServerExample extends BaseClass
 {
     /**
      * Carry out the '!' protocol - server side.
@@ -45,6 +47,8 @@ public class SSLServerExample
         String[] args)
         throws Exception
     {
+
+        //-Djavax.net.ssl.keyStore=server.jks -Djavax.net.ssl.keyStorePassword=serverPassword
         SSLServerSocketFactory fact = (SSLServerSocketFactory)SSLServerSocketFactory.getDefault();
         SSLServerSocket        sSock = (SSLServerSocket)fact.createServerSocket(Utils.PORT_NO);
         

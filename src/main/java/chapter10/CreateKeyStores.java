@@ -1,5 +1,7 @@
 package chapter10;
 
+import rb.BaseClass;
+
 import java.io.FileOutputStream;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
@@ -9,7 +11,7 @@ import javax.security.auth.x500.X500PrivateCredential;
 /**
  * Create the various credentials for an SSL session
  */
-public class CreateKeyStores
+public class CreateKeyStores extends BaseClass
 {
     public static void main(String[] args)
         throws Exception
