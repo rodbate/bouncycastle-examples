@@ -19,11 +19,11 @@ import org.bouncycastle.cert.ocsp.Req;
  */
 public class OCSPClientExample
 {
-    /*public static OCSPReq generateOCSPRequest(X509Certificate issuerCert, BigInteger serialNumber)
+    public static OCSPReq generateOCSPRequest(X509Certificate issuerCert, BigInteger serialNumber)
         throws OCSPException
     {
         // Generate the id for the certificate we are looking for
-        CertificateID   id = new CertificateID(CertificateID.HASH_SHA1, issuerCert, serialNumber);
+        /*CertificateID   id = new CertificateID(CertificateID.HASH_SHA1, issuerCert, serialNumber);
 
         // basic request generation with nonce
         OCSPReqGenerator    gen = new OCSPReqGenerator();
@@ -40,7 +40,8 @@ public class OCSPClientExample
         
         gen.setRequestExtensions(new X509Extensions(oids, values));
 
-        return gen.generate();
+        return gen.generate();*/
+        return null;
     }
 
     public static void main(
@@ -64,5 +65,5 @@ public class OCSPClientExample
             
             System.out.println("OCSP Request to check certificate number " + certID.getSerialNumber());
         }
-    }*/
+    }
 }

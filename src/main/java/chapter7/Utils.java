@@ -79,8 +79,8 @@ public class Utils extends chapter6.Utils
                 new X500Name("CN=Test Intermediate Certificate"),
                 SubjectPublicKeyInfo.getInstance(intKey.getEncoded())
         );
-        builder.addExtension(Extension.authorityKeyIdentifier, false, new AuthorityKeyIdentifier(intKey.getEncoded()));
-        builder.addExtension(Extension.subjectKeyIdentifier, false, new AuthorityKeyIdentifier(intKey.getEncoded()));
+        builder.addExtension(Extension.authorityKeyIdentifier, false, new AuthorityKeyIdentifier(caCert.getPublicKey().getEncoded()));
+        builder.addExtension(Extension.subjectKeyIdentifier, false, new SubjectKeyIdentifier(intKey.getEncoded()));
         builder.addExtension(Extension.basicConstraints, true, new BasicConstraints(0));
         builder.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyCertSign | KeyUsage.cRLSign));
 
@@ -110,7 +110,7 @@ public class Utils extends chapter6.Utils
                 new X500Name("CN=Test End Certificate"),
                 SubjectPublicKeyInfo.getInstance(entityKey.getEncoded())
         );
-        builder.addExtension(Extension.authorityKeyIdentifier, false, new AuthorityKeyIdentifier(entityKey.getEncoded()));
+        builder.addExtension(Extension.authorityKeyIdentifier, false, new AuthorityKeyIdentifier(caCert.getPublicKey().getEncoded()));
         builder.addExtension(Extension.subjectKeyIdentifier, false, new SubjectKeyIdentifier(entityKey.getEncoded()));
         builder.addExtension(Extension.basicConstraints, true, new BasicConstraints(false));
         builder.addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
