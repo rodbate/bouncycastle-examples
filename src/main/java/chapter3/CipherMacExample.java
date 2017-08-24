@@ -1,5 +1,7 @@
 package chapter3;
 
+import rb.BaseClass;
+
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -12,8 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Message without tampering with MAC (DES), encryption AES in CTR mode
  */
-public class CipherMacExample
-{   
+public class CipherMacExample extends BaseClass {
     public static void main(
         String[]    args)
         throws Exception

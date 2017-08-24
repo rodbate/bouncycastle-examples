@@ -60,7 +60,7 @@ public class Utils
         ivBytes[0] = (byte)(messageNumber >> 24);
         ivBytes[1] = (byte)(messageNumber >> 16);
         ivBytes[2] = (byte)(messageNumber >> 8);
-        ivBytes[3] = (byte)(messageNumber >> 0);
+        ivBytes[3] = (byte)(messageNumber);
         
         // set the counter bytes to 1
         

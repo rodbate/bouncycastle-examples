@@ -1,6 +1,7 @@
 package chapter10;
 
 import java.io.FileInputStream;
+import java.net.InetSocketAddress;
 import java.security.KeyStore;
 import java.security.Principal;
 
@@ -82,7 +83,13 @@ public class SSLServerWithClientAuthIdExample
         sSock.setNeedClientAuth(true);
         
         SSLSocket sslSock = (SSLSocket)sSock.accept();
-        
+
+        InetSocketAddress addr = (InetSocketAddress) sslSock.getRemoteSocketAddress();
+        System.out.println("Accept request : " + addr.getHostName() + ":" + addr.getPort());
+        sslSock.addHandshakeCompletedListener(event -> {
+            System.out.println("protocol : " + event.getSession().getProtocol());
+        });
+
         sslSock.startHandshake();
         
         // process if principal checks out

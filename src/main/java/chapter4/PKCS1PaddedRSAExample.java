@@ -1,17 +1,18 @@
 package chapter4;
 
-import java.security.Key;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.SecureRandom;
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+import rb.BaseClass;
+
+import java.io.PrintWriter;
+import java.security.*;
 
 import javax.crypto.Cipher;
 
 /**
  * RSA example with PKCS1 Padding.
  */
-public class PKCS1PaddedRSAExample
-{
+public class PKCS1PaddedRSAExample extends BaseClass {
     public static void main(
         String[]    args)
         throws Exception
@@ -28,6 +29,12 @@ public class PKCS1PaddedRSAExample
         KeyPair          pair = generator.generateKeyPair();
         Key              pubKey = pair.getPublic();
         Key              privKey = pair.getPrivate();
+
+        JcaPEMWriter writer = new JcaPEMWriter(new PrintWriter(System.out));
+        writer.writeObject(pubKey);
+        writer.writeObject(privKey);
+        writer.close();
+
 
         System.out.println("input : " + Utils.toHex(input));
         

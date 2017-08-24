@@ -1,5 +1,7 @@
 package chapter4;
 
+import rb.BaseClass;
+
 import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -14,8 +16,7 @@ import javax.crypto.KeyAgreement;
 /**
  * Diffie-Hellman using Elliptic Curve cryptography.
  */
-public class BasicECDHExample
-{
+public class BasicECDHExample extends BaseClass {
     public static void main(
         String[]    args)
         throws Exception

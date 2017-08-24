@@ -57,7 +57,7 @@ public class HTTPSClientExample
 		// read the response
 		InputStream  in = connection.getInputStream();
         
-        int ch = 0;
+        int ch;
         while ((ch = in.read()) >= 0)
         {
             System.out.print((char)ch);

@@ -1,12 +1,13 @@
 package chapter4;
 
+import rb.BaseClass;
+
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.SecureRandom;
 import java.security.Signature;
 
-public class BasicDSAExample
-{
+public class BasicDSAExample extends BaseClass {
     public static void main(
         String[]    args)
         throws Exception

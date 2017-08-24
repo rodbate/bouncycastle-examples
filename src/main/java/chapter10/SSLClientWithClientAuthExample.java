@@ -3,10 +3,7 @@ package chapter10;
 import java.io.FileInputStream;
 import java.security.KeyStore;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.*;
 
 /**
  * SSL Client with client-side authentication.
@@ -17,21 +14,25 @@ public class SSLClientWithClientAuthExample
     /**
      * Create an SSL context with a KeyManager providing our identity
      */
-    static SSLContext createSSLContext() 
+    private static SSLContext createSSLContext()
         throws Exception
     {
         // set up a key manager for our local credentials
 		KeyManagerFactory mgrFact = KeyManagerFactory.getInstance("SunX509");
 		KeyStore clientStore = KeyStore.getInstance("PKCS12");
-
 		clientStore.load(new FileInputStream("client.p12"), Utils.CLIENT_PASSWORD);
-
 		mgrFact.init(clientStore, Utils.CLIENT_PASSWORD);
-		
+
+
+		TrustManagerFactory tmfc = TrustManagerFactory.getInstance("SunX509");
+		KeyStore trustStore = KeyStore.getInstance("JKS");
+		trustStore.load(new FileInputStream("trustStore.jks"), Utils.TRUST_STORE_PASSWORD);
+        tmfc.init(trustStore);
+
 		// create a context and set up a socket factory
 		SSLContext sslContext = SSLContext.getInstance("TLS");
 
-		sslContext.init(mgrFact.getKeyManagers(), null, null);
+		sslContext.init(mgrFact.getKeyManagers(), tmfc.getTrustManagers(), null);
 		
         return sslContext;
     }

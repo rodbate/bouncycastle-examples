@@ -52,7 +52,7 @@ public class HTTPSServerExample
         pWrt.print("\r\n");
         pWrt.print("<html>\r\n");
         pWrt.print("<body>\r\n");
-        pWrt.print("Hello World!\r\n");
+        pWrt.print("jkljl;sjdfk;lsdj;fsdffsdf!\r\n");
         pWrt.print("</body>\r\n");
         pWrt.print("</html>\r\n");
         pWrt.flush();
@@ -67,7 +67,7 @@ public class HTTPSServerExample
         SSLServerSocket        sSock = (SSLServerSocket)fact.createServerSocket(Utils.PORT_NO);
     
         // client authenticate where possible
-        sSock.setWantClientAuth(true);
+        sSock.setNeedClientAuth(true);
         
         for (;;) 
         {

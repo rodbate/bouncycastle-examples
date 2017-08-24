@@ -36,10 +36,22 @@ public class Utils extends chapter7.Utils
     public static void main(String[] args) throws Exception {
         Security.addProvider(new BouncyCastleProvider());
         KeyPair         rootPair = generateRSAKeyPair();
-        X509Certificate cert = generateRootCert(rootPair);
+        X509Certificate root = generateRootCert(rootPair);
 
+        X500PrivateCredential intermediateCredential = createIntermediateCredential(rootPair.getPrivate(), root);
+
+        X500PrivateCredential endEntityCredential = createEndEntityCredential(intermediateCredential.getPrivateKey(), intermediateCredential.getCertificate());
+
+        System.out.println("ROOT ---------------------  ");
         JcaPEMWriter writer = new JcaPEMWriter(new PrintWriter(System.out));
-        writer.writeObject(cert);
+        writer.writeObject(root);
+        writer.flush();
+        writer.write("Intermediate ---------------- \n");
+        writer.writeObject(intermediateCredential.getCertificate());
+        writer.flush();
+        writer.write("\n");
+        writer.flush();
+        writer.writeObject(endEntityCredential.getCertificate());
         writer.close();
     }
     
