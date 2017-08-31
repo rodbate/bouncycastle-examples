@@ -16,11 +16,9 @@ public abstract class ServiceThread implements Runnable {
 
     private Thread thread;
 
-    private CountDownLatchReset waitLatch = new CountDownLatchReset(1);
+    private final CountDownLatchReset waitLatch = new CountDownLatchReset(1);
 
     private AtomicBoolean hasNotified = new AtomicBoolean(false);
-
-    private final Semaphore semaphore = new Semaphore(0);
 
 
     public ServiceThread(boolean isDaemon) {
@@ -37,8 +35,7 @@ public abstract class ServiceThread implements Runnable {
         isStopped = true;
 
         if (hasNotified.compareAndSet(false, true)) {
-            //waitLatch.countDown();
-            semaphore.release(1);
+            waitLatch.countDown();
         }
 
         if (isInterrupt) {
@@ -63,8 +60,7 @@ public abstract class ServiceThread implements Runnable {
         isStopped = true;
 
         if (hasNotified.compareAndSet(false, true)) {
-            //waitLatch.countDown();
-            semaphore.release(1);
+            waitLatch.countDown();
         }
 
         if (isInterrupt) {
@@ -78,12 +74,10 @@ public abstract class ServiceThread implements Runnable {
             return;
         }
 
-        //waitLatch.getCount();
-        semaphore.release(semaphore.availablePermits());
+        waitLatch.reset();
 
         try {
-            //waitLatch.wait(interval);
-            semaphore.tryAcquire(interval, TimeUnit.MILLISECONDS);
+            waitLatch.wait(interval);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -97,8 +91,7 @@ public abstract class ServiceThread implements Runnable {
             return;
         }
         try {
-            //waitLatch.countDown();
-            semaphore.release(1);
+            waitLatch.countDown();
         } catch (Exception e) {
             e.printStackTrace();
         }
