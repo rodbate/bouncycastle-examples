@@ -47,6 +47,14 @@ public class Main {
             }
         });
 
+        timer.addTask(new TimerTask(1000 * 60 * 2) {
+            private Date build = new Date();
+            @Override
+            public void run() {
+                System.out.println("Delay Time 2(min) : new at " + build + "  running at " + new Date());
+            }
+        });
+
 
 
         service.submit(() -> {

@@ -19,7 +19,7 @@ public class DelayTimer {
     private final Lock lock = new ReentrantLock();
 
     public DelayTimer(String delayTimerName) {
-        this(delayTimerName, TimeUtils.hiResNow(), 30, 1);
+        this(delayTimerName, TimeUtils.hiResNow(), 30, 1000);
     }
 
     public DelayTimer(String delayTimerName, int wheelSize) {
