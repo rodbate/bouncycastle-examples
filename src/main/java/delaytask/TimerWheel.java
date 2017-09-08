@@ -60,8 +60,6 @@ public class TimerWheel {
             bucket.add(task);
 
             if (bucket.setExpirationMs(vidx * tickTimeMillis)) {
-                // TODO: 2017/9/8 execute twice task
-                queue.remove(bucket);
                 queue.offer(bucket);
             }
             return true;

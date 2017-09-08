@@ -16,33 +16,46 @@ public class Main {
         DelayTimer timer = new DelayTimer("Delay-Service");
 
         timer.addTask(new TimerTask(3000) {
+            private Date build = new Date();
             @Override
             public void run() {
-                System.out.println("Delay Time 3000(ms) : running at " + new Date());
+                System.out.println("Delay Time 3000(ms) : new at " + build + "  running at " + new Date());
             }
         });
 
-        timer.addTask(new TimerTask(1500) {
+        timer.addTask(new TimerTask(2000) {
+            private Date build = new Date();
             @Override
             public void run() {
-                System.out.println("Delay Time 1500(ms) : running at " + new Date());
+                System.out.println("Delay Time 2000(ms) : new at " + build + "  running at " + new Date());
             }
         });
 
         timer.addTask(new TimerTask(1000) {
+            private Date build = new Date();
             @Override
             public void run() {
-                System.out.println("Delay Time 1000(ms) : running at " + new Date());
+                System.out.println("Delay Time 1000(ms) : new at " + build + "  running at " + new Date());
             }
         });
+
+        timer.addTask(new TimerTask(10000) {
+            private Date build = new Date();
+            @Override
+            public void run() {
+                System.out.println("Delay Time 10000(ms) : new at " + build + "  running at " + new Date());
+            }
+        });
+
+
 
         service.submit(() -> {
             while (true) {
-                timer.advanceTimer(200);
+                timer.advanceTimer(2000);
             }
         });
 
 
-        Thread.currentThread().join();
+        //Thread.currentThread().join();
     }
 }

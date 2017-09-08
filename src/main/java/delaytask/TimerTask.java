@@ -11,7 +11,7 @@ public abstract class TimerTask implements Runnable {
     private final long expireTimeMillis;
 
     public TimerTask(long expireTimeMillis) {
-        this.expireTimeMillis = System.currentTimeMillis() + expireTimeMillis;
+        this.expireTimeMillis = SystemTime.hiResNow() + expireTimeMillis;
     }
 
     public void cancel(){

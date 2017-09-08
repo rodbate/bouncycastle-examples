@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class TimerTaskList extends LinkedList<TimerTask> implements Delayed {
 
 
-    private final AtomicLong expirationMillis = new AtomicLong();
+    private final AtomicLong expirationMillis = new AtomicLong(-1L);
 
 
     public boolean setExpirationMs(long expireTimeMs){
@@ -23,8 +23,9 @@ public class TimerTaskList extends LinkedList<TimerTask> implements Delayed {
 
     @Override
     public int compareTo(Delayed o) {
-        long thisExpireMs = this.getDelay(TimeUnit.NANOSECONDS);
-        long thatExpireMs = o.getDelay(TimeUnit.NANOSECONDS);
+
+        long thisExpireMs = this.getExpirationMillis();
+        long thatExpireMs = ((TimerTaskList)o).getExpirationMillis();
         if (thisExpireMs - thatExpireMs > 0) {
             return 1;
         } else if (thisExpireMs -thatExpireMs < 0) {
@@ -36,6 +37,6 @@ public class TimerTaskList extends LinkedList<TimerTask> implements Delayed {
 
     @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert(expirationMillis.get(), TimeUnit.MILLISECONDS);
+        return unit.convert(Math.max(expirationMillis.get() - SystemTime.hiResNow(), 0), TimeUnit.MILLISECONDS);
     }
 }
