@@ -19,15 +19,15 @@ public class DelayTimer {
     private final Lock lock = new ReentrantLock();
 
     public DelayTimer(String delayTimerName) {
-        this(delayTimerName, SystemTime.hiResNow(), 30, 1);
+        this(delayTimerName, TimeUtils.hiResNow(), 30, 1);
     }
 
     public DelayTimer(String delayTimerName, int wheelSize) {
-        this(delayTimerName, SystemTime.hiResNow(), wheelSize, 1000);
+        this(delayTimerName, TimeUtils.hiResNow(), wheelSize, 1000);
     }
 
     public DelayTimer(String delayTimerName, int wheelSize, int tickTimeMillis) {
-        this(delayTimerName, SystemTime.hiResNow(), wheelSize, tickTimeMillis);
+        this(delayTimerName, TimeUtils.hiResNow(), wheelSize, tickTimeMillis);
     }
 
 

@@ -2,7 +2,7 @@ package delaytask;
 
 import java.util.concurrent.TimeUnit;
 
-public class SystemTime {
+public class TimeUtils {
 
     public static long now() {
         return System.currentTimeMillis();

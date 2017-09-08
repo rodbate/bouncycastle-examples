@@ -37,6 +37,6 @@ public class TimerTaskList extends LinkedList<TimerTask> implements Delayed {
 
     @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert(Math.max(expirationMillis.get() - SystemTime.hiResNow(), 0), TimeUnit.MILLISECONDS);
+        return unit.convert(Math.max(expirationMillis.get() - TimeUtils.hiResNow(), 0), TimeUnit.MILLISECONDS);
     }
 }
