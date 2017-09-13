@@ -8,6 +8,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class DelayTimer {
 
+    private final static int DEFAULT_WHEEL_SIZE = 30;
+    private final static int DEFAULT_TICK_TIME_MILLIS = 1;
+    private final static int DEFAULT_WORKER_THREAD_NUM = 3;
+
     private final String delayTimerName;
     private final long startTimeMillis;
     private final int wheelSize;
@@ -19,26 +23,26 @@ public class DelayTimer {
     private final Lock lock = new ReentrantLock();
 
     public DelayTimer(String delayTimerName) {
-        this(delayTimerName, TimeUtils.hiResNow(), 30, 1000);
+        this(delayTimerName, DEFAULT_WHEEL_SIZE);
     }
 
     public DelayTimer(String delayTimerName, int wheelSize) {
-        this(delayTimerName, TimeUtils.hiResNow(), wheelSize, 1000);
+        this(delayTimerName, wheelSize, DEFAULT_TICK_TIME_MILLIS);
     }
 
     public DelayTimer(String delayTimerName, int wheelSize, int tickTimeMillis) {
-        this(delayTimerName, TimeUtils.hiResNow(), wheelSize, tickTimeMillis);
+        this(delayTimerName, TimeUtils.hiResNow(), wheelSize, tickTimeMillis, DEFAULT_WORKER_THREAD_NUM);
     }
 
 
-    public DelayTimer(String delayTimerName, long startTimeMillis, int wheelSize, int tickTimeMillis) {
+    public DelayTimer(String delayTimerName, long startTimeMillis, int wheelSize, int tickTimeMillis, int nThreads) {
         this.delayTimerName = delayTimerName;
         this.startTimeMillis = startTimeMillis;
         this.wheelSize = wheelSize;
         this.tickTimeMillis = tickTimeMillis;
         this.executor = new ThreadPoolExecutor(
-                1,
-                1,
+                nThreads,
+                nThreads,
                 60,
                 TimeUnit.SECONDS,
                 taskQueue,

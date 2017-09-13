@@ -14,7 +14,7 @@ public class TimerWheel {
     private long currentTimeMillis;
     private final int intervalMillis;
 
-    private final AtomicReferenceFieldUpdater<TimerWheel, TimerWheel> parentWheelUpdater =
+    private static final AtomicReferenceFieldUpdater<TimerWheel, TimerWheel> parentWheelUpdater =
             AtomicReferenceFieldUpdater.newUpdater(TimerWheel.class, TimerWheel.class, "parentWheel");
 
     private volatile TimerWheel parentWheel = null;
